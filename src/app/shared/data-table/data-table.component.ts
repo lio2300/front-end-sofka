@@ -9,6 +9,7 @@ import {
 } from "@angular/core";
 import {DataTableTemplateDirective} from "@app/directives/data-table-template/data-table-template.directive";
 import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/shared/data-table/models/IDataTable";
+import {DataTableBuilder} from "@app/shared/data-table/class/DataTable";
 
 @Component({
     selector: "app-data-table",
@@ -17,7 +18,9 @@ import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/shared/data-tab
     styleUrl: "./data-table.component.scss"
 })
 export class DataTableComponent implements AfterContentInit, OnChanges {
-    @Input() dataSource!: IDataTable;
+    private readonly currentPerPage: number = 5;
+
+    @Input() dataSource: IDataTable = new DataTableBuilder().build();
 
     @ContentChildren(DataTableTemplateDirective) contentTemplates!: QueryList<DataTableTemplateDirective>;
 
@@ -50,6 +53,9 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     }
 
     loadCustomColumns(): void {
+        this.dataSource.total = this.dataSource.rows?.length ?? 0;
+        this.dataSource.perPage = this.currentPerPage;
+
         this.dataSource = {
             ...this.dataSource,
             rows: this.dataSource.rows,
@@ -89,5 +95,11 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
 
     orderColumns<T extends { order: number }>(obArray: T[]): T[] {
         return obArray.sort((a, b) => a.order - b.order);
+    }
+
+    changePerPAge(event: Event): void {
+        const value = (event.target as HTMLSelectElement).value;
+
+        this.dataSource.perPage = +value;
     }
 }

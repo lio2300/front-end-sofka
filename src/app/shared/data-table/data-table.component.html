@@ -33,13 +33,21 @@
                     }
                 </tr>
             }
+
+            @if (!rowsSource?.length) {
+                <tr>
+                    <td class="layout-data-table__text-center" [attr.colspan]="dataSource.columns.length">
+                        No data found
+                    </td>
+                </tr>
+            }
         </tbody>
         <tfoot>
             <tr>
                 <td [attr.colspan]="dataSource.columns.length">
                     <div class="layout-data-table__foot">
                         <span>{{ dataSource.total | notEmpty }} Resultados</span>
-                        <select>
+                        <select (change)="changePerPAge($event)">
                             <option selected [value]="5">5</option>
                             <option [value]="10">10</option>
                             <option [value]="25">25</option>

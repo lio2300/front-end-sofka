@@ -20,7 +20,7 @@ export class ProductComponent extends DataTableModule implements OnInit {
         searchText: new FormControl(null),
     });
 
-    protected dataSource!: IDataTable;
+    protected dataSource: IDataTable = new DataTableBuilder().build();
     readonly _columnsDataTable: IDataTableColumns[] = [
         {
             name: "Logo",
