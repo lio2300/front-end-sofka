@@ -7,11 +7,13 @@ import {SharedModule} from "@app/shared/shared.module";
 import {DirectivesModule} from "@app/directives/directives.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PipesModule} from "@app/pipes/pipes.module";
+import { NewProductComponent } from './components/new-product/new-product.component';
 
 
 @NgModule({
     declarations: [
-        ProductComponent
+        ProductComponent,
+        NewProductComponent
     ],
     imports: [
         CommonModule,
