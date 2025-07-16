@@ -1,0 +1,32 @@
+<table class="layout-data-table">
+    <thead>
+    <tr>
+        @for (column of dataSource.columns; track dataSource.columns) {
+            <td>
+                {{ column.name }}
+                @if (column.icon) {
+                    {{ column.icon }}
+                }
+            </td>
+        }
+    </tr>
+    </thead>
+    <tbody>
+        @for (row of dataSource.rows; track row) {
+            <tr>
+                @for (column of row; track column) {
+                    @if (column.overwrite_value !== undefined) {
+                        <ng-container
+                                [ngTemplateOutlet]="column.overwrite_value.templateRef"
+                                [ngTemplateOutletContext]="{ $implicit: column }">
+                        </ng-container>
+                    } @else {
+                        <td>
+                            {{ column.value }}
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

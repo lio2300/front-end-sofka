@@ -1,19 +1,17 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import {AppComponent} from "./app.component";
 
 const defaultRoute = "/financial-product";
 
 const routes: Routes = [
   {
     path: "",
-    component: AppComponent,
     children: [
       {
         path: "financial-product",
         loadChildren: () =>
-            import("@app/pages/financial-product/financial-product-routing.module").then(
-                m => m.FinancialProductRoutingModule
+            import("@app/pages/financial-product/financial-product.module").then(
+                m => m.FinancialProductModule
             ),
       },
       { path: "", redirectTo: defaultRoute, pathMatch: "full" },

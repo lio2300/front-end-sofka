@@ -5,9 +5,10 @@ import {
 import {inject, Injectable} from "@angular/core";
 import {catchError, Observable, throwError} from "rxjs";
 import {retry} from "rxjs/operators";
+import {environment} from "../../../environments/environment.dev";
 
 export interface IHttpResponse<T = unknown> {
-    data: Record<string, T>;
+    data: T;
 }
 
 @Injectable({
@@ -16,41 +17,41 @@ export interface IHttpResponse<T = unknown> {
 export class HttpService {
     private readonly httpClient = inject(HttpClient);
 
-    public mainUrl = "http://localhost:3002/";
+    public mainUrl = environment.apiURL;
     public prefix = "bp/";
 
     constructor() {
     }
 
-    get<T>(url: string, headers = {}): Observable<IHttpResponse> {
+    get<T>(url: string, headers = {}): Observable<IHttpResponse<T>> {
         return this.httpClient
-            .get<IHttpResponse<T>>(url, headers)
+            .get<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, headers)
             .pipe(catchError(error => this.handleError(error)));
     }
 
     post<T>(url: string, data: Record<string, unknown>, headers = {}) {
-        return this.httpClient.post<IHttpResponse<T>>(url, data, headers).pipe(
+        return this.httpClient.post<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     put<T>(url: string, data: Record<string, unknown>, headers = {}): Observable<IHttpResponse> {
-        return this.httpClient.put<IHttpResponse<T>>(url, data, headers).pipe(
+        return this.httpClient.put<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     delete<T>(url: string, headers = {}): Observable<IHttpResponse> {
-        return this.httpClient.delete<IHttpResponse<T>>(url, headers).pipe(
+        return this.httpClient.delete<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     patch<T>(url: string, data: Record<string, unknown>, headers = {}): Observable<IHttpResponse> {
-        return this.httpClient.patch<IHttpResponse<T>>(url, data, headers).pipe(
+        return this.httpClient.patch<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
