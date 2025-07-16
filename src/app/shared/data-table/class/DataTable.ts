@@ -1,4 +1,4 @@
-import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/models/IDataTable";
+import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/shared/data-table/models/IDataTable";
 
 export class DataTable implements IDataTable{
     rows: IDataTableRow[][];

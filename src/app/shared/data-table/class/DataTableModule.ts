@@ -1,4 +1,4 @@
-import {IDataTableColumns, IDataTableRow} from "@app/models/IDataTable";
+import {IDataTableColumns, IDataTableRow} from "@app/shared/data-table/models/IDataTable";
 
 export abstract class DataTableModule {
     abstract readonly _columnsDataTable: IDataTableColumns[];

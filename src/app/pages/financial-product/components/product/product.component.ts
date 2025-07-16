@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from "@angular/core";
-import {IDataTable, IDataTableColumns} from "@app/models/IDataTable";
+import {IDataTable, IDataTableColumns} from "@app/shared/data-table/models/IDataTable";
 import {DataTableBuilder} from "@app/shared/data-table/class/DataTable";
 import {HttpProductService} from "@app/services/financial-product/http-product.service";
 import {IFinancialProducts} from "@app/models/IFinancialProducts";

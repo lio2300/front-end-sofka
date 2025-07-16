@@ -8,7 +8,7 @@ import {
     SimpleChanges
 } from "@angular/core";
 import {DataTableTemplateDirective} from "@app/directives/data-table-template/data-table-template.directive";
-import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/models/IDataTable";
+import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/shared/data-table/models/IDataTable";
 
 @Component({
     selector: "app-data-table",
