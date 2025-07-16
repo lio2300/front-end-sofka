@@ -38,7 +38,7 @@
             <tr>
                 <td [attr.colspan]="dataSource.columns.length">
                     <div class="layout-data-table__foot">
-                        <span>{{ dataSource.total ?? "--" }} Resultados</span>
+                        <span>{{ dataSource.total | notEmpty }} Resultados</span>
                         <select>
                             <option selected [value]="5">5</option>
                             <option [value]="10">10</option>
