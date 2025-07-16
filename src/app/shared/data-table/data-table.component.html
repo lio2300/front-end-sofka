@@ -1,32 +1,54 @@
-<table class="layout-data-table">
-    <thead>
-    <tr>
-        @for (column of dataSource.columns; track dataSource.columns) {
-            <td>
-                {{ column.name }}
-                @if (column.icon) {
-                    {{ column.icon }}
-                }
-            </td>
-        }
-    </tr>
-    </thead>
-    <tbody>
-        @for (row of dataSource.rows; track row) {
-            <tr>
-                @for (column of row; track column) {
-                    @if (column.overwrite_value !== undefined) {
+<div class="layout-data-table">
+    <table class="layout-data-table__content">
+        <thead>
+        <tr>
+            @for (column of dataSource.columns; track dataSource.columns) {
+                <td>
+                    @if (column.overwrite_label !== undefined) {
                         <ng-container
-                                [ngTemplateOutlet]="column.overwrite_value.templateRef"
+                                [ngTemplateOutlet]="column.overwrite_label.templateRef"
                                 [ngTemplateOutletContext]="{ $implicit: column }">
                         </ng-container>
                     } @else {
+                        {{ column.name }}
+                    }
+                </td>
+            }
+        </tr>
+        </thead>
+        <tbody>
+            @for (row of rowsSource; track row) {
+                <tr>
+                    @for (column of row; track column) {
                         <td>
-                            {{ column.value }}
+                            @if (column.overwrite_value !== undefined) {
+                                <ng-container
+                                        [ngTemplateOutlet]="column.overwrite_value.templateRef"
+                                        [ngTemplateOutletContext]="{ $implicit: column }">
+                                </ng-container>
+                            } @else {
+                                {{ column.value }}
+                            }
                         </td>
                     }
-                }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td [attr.colspan]="dataSource.columns.length">
+                    <div class="layout-data-table__foot">
+                        <span>{{ dataSource.total ?? "--" }} Resultados</span>
+                        <select>
+                            <option selected [value]="5">5</option>
+                            <option [value]="10">10</option>
+                            <option [value]="25">25</option>
+                            <option [value]="50">50</option>
+                            <option [value]="100">100</option>
+                        </select>
+                    </div>
+                </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </tfoot>
+    </table>
+</div>

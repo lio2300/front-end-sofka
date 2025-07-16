@@ -12,6 +12,10 @@ import { DataTableTemplateDirective } from './data-table-template/data-table-tem
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    InputSofkaDirective,
+    DataTableTemplateDirective
   ]
 })
 export class DirectivesModule { }

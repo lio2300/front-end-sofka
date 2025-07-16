@@ -7,10 +7,9 @@ export interface IDataTable {
     perPage: number;
 }
 
-export type IDataTableColumns = Omit<IDataTableRow, "alias"> & { icon: string };
+export type IDataTableColumns = Omit<IDataTableRow, "value"> & {name: string;};
 
 export interface IDataTableRow {
-    name: string;
     alias: string;
     value: string;
     overwrite_label?: DataTableTemplateDirective;

@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpService} from "@app/services/http/http.service";
-import {map, Observable, of} from "rxjs";
+import {delay, map, Observable, of} from "rxjs";
 import {IFinancialProducts} from "@app/models/IFinancialProducts";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class HttpProductService {
     /**
      * Get products for Data Table
      */
-    retrieveProducts(): Observable<IFinancialProducts[]> {
+    retrieveProducts(id: string): Observable<IFinancialProducts[]> {
         // return this.httpService.get<IFinancialProducts[]>(`products`)
         //     .pipe(
         //         map(resp => resp.data)
@@ -49,6 +49,7 @@ export class HttpProductService {
             ]
         } as any)
             .pipe(
+                delay(2000),
                 map(resp => resp.data)
             );
     }

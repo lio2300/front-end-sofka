@@ -1,19 +1,25 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
 
-import { FinancialProductRoutingModule } from "./financial-product-routing.module";
-import { ProductComponent } from "./components/product/product.component";
+import {FinancialProductRoutingModule} from "./financial-product-routing.module";
+import {ProductComponent} from "./components/product/product.component";
 import {SharedModule} from "@app/shared/shared.module";
+import {DirectivesModule} from "@app/directives/directives.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [
-    ProductComponent
-  ],
-  imports: [
-    CommonModule,
-    FinancialProductRoutingModule,
-    SharedModule
-  ]
+    declarations: [
+        ProductComponent
+    ],
+    imports: [
+        CommonModule,
+        FinancialProductRoutingModule,
+        SharedModule,
+        DirectivesModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
-export class FinancialProductModule { }
+export class FinancialProductModule {
+}

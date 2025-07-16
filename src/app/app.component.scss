@@ -1,12 +1,8 @@
-$bg-color: rgb(189 196 202);
+$bg-color: rgb(220 227 231);
 
 .layout-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   &__content-page {
     background-color: $bg-color;
-    padding: 4rem 3rem 6rem;
+    padding: 4rem 3rem 6rem 3rem;
   }
 }

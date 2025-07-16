@@ -1,6 +1,8 @@
-import {IDataTableRow} from "@app/models/IDataTable";
+import {IDataTableColumns, IDataTableRow} from "@app/models/IDataTable";
 
 export abstract class DataTableModule {
+    abstract readonly _columnsDataTable: IDataTableColumns[];
+
     /**
      * Converts an arrangement of generic objects a non -format of data table.
      * @param dataSource An object arrangement.
@@ -9,9 +11,13 @@ export abstract class DataTableModule {
     convertToRowDataTable<T extends object>(dataSource: T[]): IDataTableRow[][] {
         return dataSource.map((row) => {
 
-            return Object.entries(row).map(([name, value]) => {
-                return {value, name} as IDataTableRow
-            });
+            return Object.entries(row)
+                .map(([alias, value]) => {
+                    const column = this._columnsDataTable.find((col) => col.alias === alias);
+                    return {value, alias, order: column?.order} as IDataTableRow
+                })
+                .filter(({alias}) => this._columnsDataTable.some((col) => col.alias === alias))
+                .sort((a, b) => a.order - b.order);
         })
     }
 }

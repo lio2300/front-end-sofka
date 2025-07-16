@@ -1,4 +1,12 @@
-import {AfterContentInit, Component, ContentChildren, Input, OnChanges, QueryList, SimpleChanges} from "@angular/core";
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    Input,
+    OnChanges,
+    QueryList,
+    SimpleChanges
+} from "@angular/core";
 import {DataTableTemplateDirective} from "@app/directives/data-table-template/data-table-template.directive";
 import {IDataTable, IDataTableColumns, IDataTableRow} from "@app/models/IDataTable";
 
@@ -31,13 +39,13 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.overwriteLabels = this.contentTemplates.filter(
             value => value.type === "label"
         );
+        this.loadColumnsCustom();
     }
 
     ngOnChanges({dataSource}: SimpleChanges): void {
         if (!dataSource) {
             return;
         }
-
         this.loadColumnsCustom();
     }
 
@@ -45,19 +53,38 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.dataSource = {
             ...this.dataSource,
             rows: this.dataSource.rows,
-            columns: this.orderColumns<IDataTableColumns>(this.dataSource.columns),
+            columns: this.orderColumns<IDataTableColumns>(this.dataSource.columns)
+                .map((column) => {
+                    return {
+                        ...column,
+                        overwrite_label: this.overwriteLabels.find(
+                            value => value.name === column.alias
+                        ),
+                    }
+                }),
         };
 
-        this.rowsSource = this.dataSource.rows.map((row) =>
-            row.map((rowValue) => ({
+        this.rowsSource = this.dataSource.rows.map((row) => {
+            const newColumns: IDataTableRow[] = row.map((rowValue) => ({
                 ...rowValue,
-                overwrite_label: this.overwriteLabels.find(
-                    value => value.name === rowValue.name
-                ),
                 overwrite_value: this.overwriteColumns.find(
-                    value => value.name === rowValue.name
+                    value => value.name === rowValue.alias
                 ),
-            })));
+            }));
+
+            if (this.actionsTemplate) {
+                const actionsColumn: IDataTableRow = {
+                    order: newColumns.length,
+                    value: "",
+                    alias: "actions",
+                    overwrite_value: this.actionsTemplate
+                };
+
+                newColumns.push(actionsColumn);
+            }
+
+            return newColumns;
+        });
     }
 
     orderColumns<T extends { order: number }>(obArray: T[]): T[] {

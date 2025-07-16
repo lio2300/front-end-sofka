@@ -1,3 +1,29 @@
+<form [formGroup]="formSearch" class="layout-header-data-table">
+    <input
+            class="layout-header-data-table__search-product"
+            appInputSofka
+            formControlName="searchText"
+            placeholder="Search..."
+    />
+    <button class="layout-header-data-table__add-product cursor-pointer">Agregar</button>
+</form>
 <app-data-table
-    [dataSource]="dataSource"
-></app-data-table>
+        [dataSource]="dataSource"
+>
+    <ng-template appDataTableTemplate name="description" type="label" let-item>
+        <div class="text-column-description">
+            <span>Descripción</span>
+            <i class="fa-solid fa-circle-info"></i>
+        </div>
+    </ng-template>
+
+    <ng-template appDataTableTemplate name="logo" type="column" let-item>
+        <div class="logo-product">JG</div>
+    </ng-template>
+
+    <ng-template appDataTableTemplate name="actions" type="action" let-item>
+        <div class="cursor-pointer more-actions">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+    </ng-template>
+</app-data-table>
