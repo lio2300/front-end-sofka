@@ -39,17 +39,17 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.overwriteLabels = this.contentTemplates.filter(
             value => value.type === "label"
         );
-        this.loadColumnsCustom();
+        this.loadCustomColumns();
     }
 
     ngOnChanges({dataSource}: SimpleChanges): void {
         if (!dataSource) {
             return;
         }
-        this.loadColumnsCustom();
+        this.loadCustomColumns();
     }
 
-    loadColumnsCustom(): void {
+    loadCustomColumns(): void {
         this.dataSource = {
             ...this.dataSource,
             rows: this.dataSource.rows,
