@@ -35,6 +35,17 @@
         <div class="logo-product">JG</div>
     </ng-template>
 
+
+    <ng-template appDataTableTemplate name="date_release" type="column" let-item>
+        {{ item.value | formatDate: "DD/MM/YYYY" | notEmpty }}
+    </ng-template>
+
+
+    <ng-template appDataTableTemplate name="date_revision" type="column" let-item>
+        {{ item.value | formatDate: "DD/MM/YYYY" | notEmpty }}
+
+    </ng-template>
+
     <ng-template appDataTableTemplate name="actions" type="action" let-item>
         <div class="cursor-pointer more-actions">
             <i class="fa-solid fa-ellipsis-vertical"></i>

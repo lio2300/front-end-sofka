@@ -10,7 +10,7 @@
                                 [ngTemplateOutletContext]="{ $implicit: column }">
                         </ng-container>
                     } @else {
-                        {{ column.name }}
+                        {{ column.name | notEmpty }}
                     }
                 </td>
             }
@@ -27,7 +27,7 @@
                                         [ngTemplateOutletContext]="{ $implicit: column }">
                                 </ng-container>
                             } @else {
-                                {{ column.value }}
+                                {{ column.value | notEmpty }}
                             }
                         </td>
                     }

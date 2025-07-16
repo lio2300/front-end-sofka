@@ -6,12 +6,16 @@ import { NotEmptyPipe } from "./not-empty/not-empty.pipe";
 
 
 @NgModule({
-  declarations: [
-    FormatDatePipe,
-    NotEmptyPipe
-  ],
-  imports: [
-    CommonModule
-  ]
+    declarations: [
+        FormatDatePipe,
+        NotEmptyPipe
+    ],
+    exports: [
+        FormatDatePipe,
+        NotEmptyPipe
+    ],
+    imports: [
+        CommonModule
+    ]
 })
 export class PipesModule { }

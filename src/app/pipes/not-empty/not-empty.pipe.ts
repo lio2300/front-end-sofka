@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from "@angular/core";
   standalone: false
 })
 export class NotEmptyPipe implements PipeTransform {
-  transform(value: string, num = 2): string {
+  transform(value: string | null, num = 2): string {
     const str = "-";
 
     return value ?? str.repeat(num);

@@ -6,6 +6,7 @@ import {ProductComponent} from "./components/product/product.component";
 import {SharedModule} from "@app/shared/shared.module";
 import {DirectivesModule} from "@app/directives/directives.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {PipesModule} from "@app/pipes/pipes.module";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         SharedModule,
         DirectivesModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        PipesModule
     ]
 })
 export class FinancialProductModule {
