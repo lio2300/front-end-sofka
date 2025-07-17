@@ -9,6 +9,10 @@
   color: white;
 }
 
+.logo-product-image {
+  width: 5rem;
+}
+
 .d-none {
   display: none;
 }
@@ -28,7 +32,7 @@
 }
 
 .more-actions {
-  width: 2rem;
+  width: 1rem;
   height: 2rem;
 }
 
@@ -42,4 +46,10 @@
     width: 100%;
     max-width: 12.5rem;
   }
+}
+
+.icon-action {
+  gap: 0.5rem;
+  display: flex;
+  align-items: baseline;
 }

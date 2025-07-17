@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpService} from "@app/services/http/http.service";
-import {map, Observable, of, tap} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {IFinancialProducts} from "@app/models/IFinancialProducts";
 
 @Injectable({
@@ -18,16 +18,19 @@ export class HttpProductService {
      * @param id ID financial product
      */
     retrieveProducts(id: string): Observable<IFinancialProducts[]> {
-        if (id) {
-            return of(this.findFinancialProductById(id));
-        }
-
         return this.httpService.get<IFinancialProducts[]>(`products`)
             .pipe(
                 tap(({data}) => {
                     this.originalFinancialProducts = data;
                 }),
-                map(resp => resp.data)
+                map(resp => resp.data),
+                map((resp) => {
+                    if (id) {
+                        return this.findFinancialProductById(id);
+                    }
+
+                    return resp;
+                }),
             );
     }
 
@@ -50,6 +53,13 @@ export class HttpProductService {
         return this.httpService.post<IFinancialProducts>(`products`, product)
             .pipe(
                 map((resp) => resp.data),
+            );
+    }
+
+    updateProduct(product: IFinancialProducts): Observable<IFinancialProducts> {
+        return this.httpService.put<IFinancialProducts>(`products/${product.id}`, product)
+            .pipe(
+                map((resp) => resp as unknown as IFinancialProducts),
             );
     }
 }

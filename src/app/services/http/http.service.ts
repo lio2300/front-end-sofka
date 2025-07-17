@@ -29,14 +29,14 @@ export class HttpService {
             .pipe(catchError(error => this.handleError(error)));
     }
 
-    post<T>(url: string, data: T, headers = {}) {
+    post<T>(url: string, data: T, headers = {}): Observable<IHttpResponse<T>> {
         return this.httpClient.post<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
-    put<T>(url: string, data: T, headers = {}): Observable<IHttpResponse> {
+    put<T>(url: string, data: T, headers = {}): Observable<IHttpResponse<T>> {
         return this.httpClient.put<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))

@@ -89,4 +89,8 @@ export class ProductComponent extends DataTableModule implements OnInit {
         (event.target as HTMLImageElement).classList.add("d-none");
         defaultImage.classList.remove("d-none");
     }
+
+    editProduct(product: IFinancialProducts): void {
+        console.log(product);
+    }
 }

@@ -13,4 +13,5 @@ export interface IDataTableRow {
     overwrite_label?: DataTableTemplateDirective;
     overwrite_value?: DataTableTemplateDirective;
     order: number;
+    item?: any;
 }

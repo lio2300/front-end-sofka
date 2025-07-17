@@ -26,6 +26,11 @@ body {
   font-weight: bold;
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .btn-primary {
   background: #e1d22f;
 }

@@ -24,7 +24,7 @@
                             @if (column.overwrite_value !== undefined) {
                                 <ng-container
                                         [ngTemplateOutlet]="column.overwrite_value.templateRef"
-                                        [ngTemplateOutletContext]="{ $implicit: column }">
+                                        [ngTemplateOutletContext]="{ $implicit: column, item: column.item }">
                                 </ng-container>
                             } @else {
                                 {{ column.value | notEmpty }}

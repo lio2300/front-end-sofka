@@ -1,0 +1,25 @@
+.layout-dropdown {
+  position: relative;
+
+  &__content {
+    position: absolute;
+    top: 100%;
+    right: 4.063rem;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__trigger {
+    width: fit-content;
+  }
+
+  &__item {
+    min-width: 6rem;
+    padding: 1rem;
+  }
+}
+
+.d-none {
+  display: none;
+}

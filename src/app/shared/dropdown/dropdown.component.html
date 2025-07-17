@@ -1,0 +1,17 @@
+<div class="layout-dropdown">
+    <div #triggerContainer class="layout-dropdown__trigger">
+        <ng-container
+                [ngTemplateOutlet]="menuTrigger!.templateRef">
+        </ng-container>
+    </div>
+
+    <div #menuContent class="layout-dropdown__content d-none">
+        @for (item of itemMenu; track item) {
+            <div class="layout-dropdown__item">
+                <ng-container
+                        [ngTemplateOutlet]="item.templateRef">
+                </ng-container>
+            </div>
+        }
+    </div>
+</div>

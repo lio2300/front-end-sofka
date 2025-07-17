@@ -27,7 +27,7 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
 
     overwriteColumns: DataTableTemplateDirective[] = [];
     overwriteLabels: DataTableTemplateDirective[] = [];
-    actionsTemplate: DataTableTemplateDirective | undefined = undefined;
+    actionsTemplate: DataTableTemplateDirective | undefined;
 
     rowsSource: IDataTableRow[][] = [];
 
@@ -46,8 +46,7 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.loadCustomColumns();
     }
 
-    ngOnChanges({dataSource, currentPerPage}: SimpleChanges): void {
-        console.log(currentPerPage);
+    ngOnChanges({dataSource}: SimpleChanges): void {
         if (!dataSource) {
             return;
         }
@@ -84,7 +83,8 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
                     order: newColumns.length,
                     value: "",
                     alias: "actions",
-                    overwrite_value: this.actionsTemplate
+                    overwrite_value: this.actionsTemplate,
+                    item: row[0].item,
                 };
 
                 newColumns.push(actionsColumn);

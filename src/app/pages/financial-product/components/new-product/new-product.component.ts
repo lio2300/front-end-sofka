@@ -32,9 +32,19 @@ export class NewProductComponent implements OnInit, OnDestroy {
     }
 
     assigmentDataForm(): void {
-        this.idProduct = this._route.snapshot.queryParams["id"];
+        this.idProduct = this._route.snapshot.params["id"];
         if (this.idProduct) {
-            //code here for update
+            this.loadingSaveProduct = true;
+            this.formProduct.get("id")?.disable();
+            this._httpProduct.retrieveProducts(this.idProduct).subscribe({
+                next: ([product]) => {
+                    this.formProduct.patchValue(product);
+                    this.loadingSaveProduct = false;
+                },
+                error: () => {
+                    this.loadingSaveProduct = false;
+                }
+            });
         }
 
         this.statusChangesSubscription["changeStatusDateRelease"] = this.formProduct.get("date_release")!.valueChanges.subscribe((value) => {
@@ -48,7 +58,9 @@ export class NewProductComponent implements OnInit, OnDestroy {
         }
 
         this.loadingSaveProduct = true;
-        this._httpProduct.saveProduct(this.formProduct.getRawValue()).subscribe({
+        const requestProduct = this.idProduct ? this._httpProduct.updateProduct(this.formProduct.getRawValue()) : this._httpProduct.saveProduct(this.formProduct.getRawValue());
+
+        requestProduct.subscribe({
             next: () => {
                 this.formProduct.reset();
                 this.loadingSaveProduct = false;
@@ -70,7 +82,10 @@ export class NewProductComponent implements OnInit, OnDestroy {
         };
 
         if (this.idProduct) {
-            this.formProduct.reset(fieldsDefaultReset);
+            this.formProduct.reset({
+                ...fieldsDefaultReset,
+                id: this.idProduct
+            });
         } else {
             this.formProduct.reset({
                 ...fieldsDefaultReset,

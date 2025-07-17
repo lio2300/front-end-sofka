@@ -18,6 +18,6 @@ export class FormatDatePipe implements PipeTransform {
       return null;
     }
 
-    return moment(date).format(format) || null;
+    return moment.utc(date).format(format) || null;
   }
 }

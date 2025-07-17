@@ -14,10 +14,10 @@ export abstract class DataTableModule {
             return Object.entries(row)
                 .map(([alias, value]) => {
                     const column = this._columnsDataTable.find((col) => col.alias === alias);
-                    return {value, alias, order: column?.order} as IDataTableRow
+                    return {value, alias, order: column?.order, item: row} as IDataTableRow;
                 })
                 .filter(({alias}) => this._columnsDataTable.some((col) => col.alias === alias))
                 .sort((a, b) => a.order - b.order);
-        })
+        });
     }
 }

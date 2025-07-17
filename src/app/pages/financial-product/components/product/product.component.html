@@ -10,46 +10,56 @@
 <app-data-table
         [dataSource]="dataSource"
 >
-    <ng-template appDataTableTemplate name="description" type="label" let-item>
+    <ng-template appDataTableTemplate name="description" type="label" let-column>
         <div class="text-column-description">
             <span>Descripción</span>
             <i class="fa-solid fa-circle-info"></i>
         </div>
     </ng-template>
 
-    <ng-template appDataTableTemplate name="date_release" type="label" let-item>
+    <ng-template appDataTableTemplate name="date_release" type="label" let-column>
         <div class="text-column-description">
             <span>Fecha de liberación</span>
             <i class="fa-solid fa-circle-info"></i>
         </div>
     </ng-template>
 
-    <ng-template appDataTableTemplate name="date_revision" type="label" let-item>
+    <ng-template appDataTableTemplate name="date_revision" type="label" let-column>
         <div class="text-column-description">
             <span>Fecha de restructuración</span>
             <i class="fa-solid fa-circle-info"></i>
         </div>
     </ng-template>
 
-    <ng-template appDataTableTemplate name="logo" type="column" let-item>
-        <img [src]="item.value" class="logo-product" alt="logo-product" (error)="addErrorClass($event, defaultImg)"/>
+    <ng-template appDataTableTemplate name="logo" type="column" let-column>
+        <img [src]="column.value" class="logo-product logo-product-image" alt="logo-product" (error)="addErrorClass($event, defaultImg)"/>
         <div #defaultImg class="logo-product d-none">JG</div>
     </ng-template>
 
 
-    <ng-template appDataTableTemplate name="date_release" type="column" let-item>
-        {{ item.value | formatDate: "DD/MM/YYYY" | notEmpty }}
+    <ng-template appDataTableTemplate name="date_release" type="column" let-column>
+        {{ column.value | formatDate: "DD/MM/YYYY" | notEmpty }}
     </ng-template>
 
 
-    <ng-template appDataTableTemplate name="date_revision" type="column" let-item>
-        {{ item.value | formatDate: "DD/MM/YYYY" | notEmpty }}
+    <ng-template appDataTableTemplate name="date_revision" type="column" let-column>
+        {{ column.value | formatDate: "DD/MM/YYYY" | notEmpty }}
 
     </ng-template>
 
-    <ng-template appDataTableTemplate name="actions" type="action" let-item>
-        <div class="cursor-pointer more-actions">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
+    <ng-template appDataTableTemplate name="actions" type="action" let-column let-item=item>
+        <app-dropdown>
+            <ng-template appDropdownTemplate type="menuTrigger">
+                <div class="cursor-pointer more-actions">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+            </ng-template>
+            <ng-template appDropdownTemplate type="item">
+                <div class="cursor-pointer icon-action" [routerLink]="['/financial-product', item.id]">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Editar</span>
+                </div>
+            </ng-template>
+        </app-dropdown>
     </ng-template>
 </app-data-table>

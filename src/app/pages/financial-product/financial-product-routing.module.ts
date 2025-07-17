@@ -14,6 +14,10 @@ const routes: Routes = [
     path: "new",
     component: NewProductComponent,
   },
+  {
+    path: ":id",
+    component: NewProductComponent,
+  },
   { path: "", redirectTo: defaultRoute, pathMatch: "full" },
   { path: "**", redirectTo: defaultRoute, pathMatch: "full" },
 ];
