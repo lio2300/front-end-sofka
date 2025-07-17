@@ -54,6 +54,15 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.loadCustomColumns();
     }
 
+    /**
+     * @description
+     * Load custom columns and templates.
+     * It orders columns by order property, then maps over the columns to add
+     * the overwrite_label property to each column.
+     * Then it maps over the rows to add the overwrite_value property to each row.
+     * Finally, it adds the actions column if the actionsTemplate is defined.
+     * @returns {void}
+     */
     loadCustomColumns(): void {
         this.totalRows = this.dataSource.rows?.length ?? 0;
 
@@ -95,10 +104,23 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         });
     }
 
+    /**
+     * Orders an array of  objects by the order property.
+     * @param obArray An array of objects with an order property
+     * @returns The sorted array
+     */
     orderColumns<T extends { order: number }>(obArray: T[]): T[] {
         return obArray.sort((a, b) => a.order - b.order);
     }
 
+    /**
+     * Handles the change event on the per page select element.
+     * @param event The change event
+     * @description
+     * Gets the selected value, reloads the custom columns and then
+     * splices the rowsSource array to show the desired number of rows.
+     * @returns {void}
+     */
     changePerPAge(event: Event): void {
         const value = (event.target as HTMLSelectElement).value;
         this.loadCustomColumns();

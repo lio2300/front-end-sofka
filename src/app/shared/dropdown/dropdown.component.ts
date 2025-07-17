@@ -9,7 +9,7 @@ import {
     ViewChild
 } from "@angular/core";
 import {DropdownTemplateDirective} from "@app/directives/dropdown-template/dropdown-template.directive";
-import {fromEvent} from "rxjs";
+import {fromEvent, Subscription} from "rxjs";
 
 @Component({
     selector: "app-dropdown",
@@ -27,6 +27,8 @@ export class DropdownComponent implements AfterContentInit {
     itemMenu: DropdownTemplateDirective[] = [];
     menuTrigger: DropdownTemplateDirective | undefined;
 
+    statusChangesSubscription: Record<string, Subscription> = {};
+
     ngAfterContentInit(): void {
         this.itemMenu = this.contentTemplates.filter(
             value => value.type === "item"
@@ -36,7 +38,7 @@ export class DropdownComponent implements AfterContentInit {
             value => value.type === "menuTrigger"
         );
 
-        fromEvent(document, "click").subscribe((event: Event) => {
+        this.statusChangesSubscription["formEventClick"] = fromEvent(document, "click").subscribe((event: Event) => {
             const clickedInsideTrigger = this.triggerContainer?.nativeElement.contains(event.target);
             const clickedInsideContent = this.menuContent?.nativeElement.contains(event.target);
 
@@ -47,13 +49,13 @@ export class DropdownComponent implements AfterContentInit {
 
         setTimeout(() => {
             if (this.triggerContainer) {
-                fromEvent(this.triggerContainer.nativeElement, "click").subscribe(() => {
+                this.statusChangesSubscription["formEventClickTriggerContent"] = fromEvent(this.triggerContainer.nativeElement, "click").subscribe(() => {
                     this.renderer.removeClass(this.menuContent?.nativeElement, "d-none");
                 });
             }
 
             if (this.menuContent) {
-                fromEvent(this.menuContent.nativeElement, "click").subscribe(() => {
+                this.statusChangesSubscription["formEventClickMenuContent"] = fromEvent(this.menuContent.nativeElement, "click").subscribe(() => {
                     this.renderer.addClass(this.menuContent!.nativeElement, "d-none");
                 });
             }

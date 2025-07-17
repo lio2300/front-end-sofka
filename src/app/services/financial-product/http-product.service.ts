@@ -34,6 +34,12 @@ export class HttpProductService {
             );
     }
 
+    /**
+     * Filter the financial products list by ID, searching whether the ID product
+     * or the name of product matches with the given ID.
+     * @param id ID financial product
+     * @returns An array of financial products which matches with the given ID
+     */
     findFinancialProductById(id: string): IFinancialProducts[] {
         return this.originalFinancialProducts.filter(({id: idProduct, name}) => new RegExp(id, "ig").test(idProduct) || new RegExp(id, "ig").test(name));
     }
@@ -49,6 +55,11 @@ export class HttpProductService {
             );
     }
 
+    /**
+     * Saves a new financial product.
+     * @param product The financial product to be saved.
+     * @returns An observable that emits the saved financial product.
+     */
     saveProduct(product: IFinancialProducts): Observable<IFinancialProducts> {
         return this.httpService.post<IFinancialProducts>(`products`, product)
             .pipe(
@@ -56,6 +67,11 @@ export class HttpProductService {
             );
     }
 
+    /**
+     * Updates a financial product with the given ID.
+     * @param product The financial product to be updated.
+     * @returns An observable that emits the updated financial product.
+     */
     updateProduct(product: IFinancialProducts): Observable<IFinancialProducts> {
         return this.httpService.put<IFinancialProducts>(`products/${product.id}`, product)
             .pipe(
