@@ -9,7 +9,7 @@ import {
     Validators
 } from "@angular/forms";
 import {IFormModule} from "@app/models/IFormModule";
-import {map, Observable} from "rxjs";
+import {finalize, map, Observable} from "rxjs";
 import {releaseDateValidator, revisionDateValidator} from "@app/Utils/form-validators";
 import {HttpProductService} from "@app/services/financial-product/http-product.service";
 
@@ -19,6 +19,8 @@ import {HttpProductService} from "@app/services/financial-product/http-product.s
 export class FormProductService implements IFormModule {
     readonly _formBuilder = inject(FormBuilder);
     private readonly _httpProduct = inject(HttpProductService);
+
+    loadingVerifyIdExitsProduct: boolean = false;
 
     constructor() {
     }
@@ -42,8 +44,10 @@ export class FormProductService implements IFormModule {
 
     private idExistsValidator(): AsyncValidatorFn {
         return (control: AbstractControl): Observable<ValidationErrors | null> => {
+            this.loadingVerifyIdExitsProduct = true;
             return this._httpProduct.verifyIdExitsProduct(control.value).pipe(
-                map(exists => (exists ? {idExists: true} : null))
+                map(exists => (exists ? {idExists: true} : null)),
+                finalize(() => this.loadingVerifyIdExitsProduct = false),
             );
         };
     }

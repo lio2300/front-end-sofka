@@ -17,3 +17,28 @@ body {
   border-radius: 0.4rem;
   border: 1.5px solid #3b3e4380;
 }
+
+.btn {
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 0.3rem;
+  color: #515a66;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: #e1d22f;
+}
+
+.btn-secondary {
+  background: rgb(220 227 231);
+}
+
+.invalid-control {
+  border: 1px solid red;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+}

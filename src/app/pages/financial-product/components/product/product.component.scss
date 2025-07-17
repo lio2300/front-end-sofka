@@ -5,9 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 7px;
+  padding: 0.3125rem 0.4375rem;
   border-radius: 29rem;
   color: white;
+}
+
+.d-none {
+  display: none;
 }
 
 .w-100 {
@@ -38,12 +42,5 @@
   &__search-product {
     width: 100%;
     max-width: 12.5rem;
-  }
-
-  &__add-product {
-    background: #e1d22f;
-    border: none;
-    padding: 1rem 1.5rem;
-    border-radius: 0.3rem;
   }
 }

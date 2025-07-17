@@ -1,0 +1,52 @@
+<div class="financial-product">
+    <div class="financial-product financial-product__content">
+        <span class="financial-product__title">Formulario de Registro</span>
+        <hr class="w-100"/>
+        <form [formGroup]="formProduct" class="financial-product__form" (ngSubmit)="saveProduct()">
+            <div class="financial-product__input-group">
+                <label for="new-product-id">Id</label>
+                <input [disabled]="formProductService.loadingVerifyIdExitsProduct"
+                       type="text" formControlName="id" appInputSofka
+                       id="new-product-id">
+                @if (formProductService.loadingVerifyIdExitsProduct) {
+                    <span>
+                            <i class="fa-duotone fa-solid fa-spinner fa-spin"></i>
+                        </span>
+                }
+            </div>
+            <div class="financial-product__input-group">
+                <label for="new-product-name">Nombre</label>
+                <input type="text" formControlName="name" appInputSofka id="new-product-name">
+            </div>
+            <div class="financial-product__input-group">
+                <label for="new-product-description">Descripción</label>
+                <input type="text" formControlName="description" appInputSofka id="new-product-description">
+            </div>
+            <div class="financial-product__input-group">
+                <label for="new-product-logo">Logo</label>
+                <input type="text" formControlName="logo" appInputSofka id="new-product-logo">
+            </div>
+            <div class="financial-product__input-group">
+                <label for="new-product-date-release">Fecha Liberación</label>
+                <input type="date" formControlName="date_release" appInputSofka id="new-product-date-release">
+            </div>
+            <div class="financial-product__input-group">
+                <label for="new-product-date-revision">Fecha Revisión</label>
+                <input type="date" formControlName="date_revision" appInputSofka id="new-product-date-revision">
+            </div>
+            <div class="financial-product__footer">
+                <button type="button" (click)="resetForm()" class="btn btn-secondary cursor-pointer">Reiniciar
+                </button>
+                <button type="submit" [disabled]="formProduct.invalid || loadingSaveProduct"
+                        class="btn btn-primary cursor-pointer">
+                    @if (loadingSaveProduct) {
+                        <span>
+                                <i class="fa-duotone fa-solid fa-spinner fa-spin"></i>
+                            </span>
+                    }
+                    Agregar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

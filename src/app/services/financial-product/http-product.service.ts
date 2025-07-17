@@ -32,7 +32,7 @@ export class HttpProductService {
     }
 
     findFinancialProductById(id: string): IFinancialProducts[] {
-        return this.originalFinancialProducts.filter(({id: idProduct}) => idProduct === id);
+        return this.originalFinancialProducts.filter(({id: idProduct, name}) => new RegExp(id, "ig").test(idProduct) || new RegExp(id, "ig").test(name));
     }
 
     /**
@@ -42,7 +42,14 @@ export class HttpProductService {
     verifyIdExitsProduct(id: string): Observable<boolean> {
         return this.httpService.get<boolean>(`products/verification/${id}`)
             .pipe(
-                map(() => true)
+                map((resp) => resp as unknown as boolean),
+            );
+    }
+
+    saveProduct(product: IFinancialProducts): Observable<IFinancialProducts> {
+        return this.httpService.post<IFinancialProducts>(`products`, product)
+            .pipe(
+                map((resp) => resp.data),
             );
     }
 }

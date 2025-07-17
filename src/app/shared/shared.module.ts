@@ -1,18 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DataTableComponent } from './data-table/data-table.component';
-import {PipesModule} from "@app/pipes/pipes.module";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {DataTableModule} from "@app/shared/data-table/data-table.module";
 
 
 
 @NgModule({
-  declarations: [
-    DataTableComponent
-  ],
+  declarations: [],
     imports: [
         CommonModule,
-        PipesModule
+        DataTableModule
     ],
-  exports: [DataTableComponent]
+    exports: [
+        DataTableModule
+    ]
 })
 export class SharedModule { }

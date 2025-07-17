@@ -15,7 +15,7 @@ import {debounceTime} from "rxjs";
 })
 export class ProductComponent extends DataTableModule implements OnInit {
     private readonly _financialProductsService = inject(HttpProductService);
-    private readonly _fb = inject(FormBuilder)
+    private readonly _fb = inject(FormBuilder);
     formSearch: FormGroup = this._fb.group({
         searchText: new FormControl(null),
     });
@@ -74,7 +74,7 @@ export class ProductComponent extends DataTableModule implements OnInit {
                     .setColumns(this._columnsDataTable)
                     .build();
             }
-        })
+        });
     }
 
     listenChangeValue(): void {
@@ -82,6 +82,11 @@ export class ProductComponent extends DataTableModule implements OnInit {
             .pipe(debounceTime(1000))
             .subscribe(() => {
                 this.fetchDataTable();
-            })
+            });
+    }
+
+    addErrorClass(event: Event, defaultImage: HTMLDivElement): void {
+        (event.target as HTMLImageElement).classList.add("d-none");
+        defaultImage.classList.remove("d-none");
     }
 }

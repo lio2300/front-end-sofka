@@ -29,14 +29,14 @@ export class HttpService {
             .pipe(catchError(error => this.handleError(error)));
     }
 
-    post<T>(url: string, data: Record<string, unknown>, headers = {}) {
+    post<T>(url: string, data: T, headers = {}) {
         return this.httpClient.post<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
-    put<T>(url: string, data: Record<string, unknown>, headers = {}): Observable<IHttpResponse> {
+    put<T>(url: string, data: T, headers = {}): Observable<IHttpResponse> {
         return this.httpClient.put<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))
@@ -50,7 +50,7 @@ export class HttpService {
         );
     }
 
-    patch<T>(url: string, data: Record<string, unknown>, headers = {}): Observable<IHttpResponse> {
+    patch<T>(url: string, data: T, headers = {}): Observable<IHttpResponse> {
         return this.httpClient.patch<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
             retry(3),
             catchError(error => this.handleError(error))

@@ -1,0 +1,43 @@
+.financial-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    max-width: 46.5rem;
+    background-color: white;
+  }
+
+  &__title {
+    margin-top: 1.5rem;
+    font-weight: bold;
+    font-size: 2.3rem;
+    padding: 0 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1rem 2rem 3rem 2rem;
+  }
+
+  &__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1 1 35%;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}
+
+.w-100 {
+  width: 100%;
+}
