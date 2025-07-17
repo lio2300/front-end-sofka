@@ -1,7 +1,9 @@
-import {Component, inject, OnInit} from "@angular/core";
+import {Component, inject, OnDestroy, OnInit} from "@angular/core";
 import {FormProductService} from "@app/services/financial-product/form-product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpProductService} from "@app/services/financial-product/http-product.service";
+import moment from "moment";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: "app-new-product",
@@ -9,7 +11,7 @@ import {HttpProductService} from "@app/services/financial-product/http-product.s
     templateUrl: "./new-product.component.html",
     styleUrl: "./new-product.component.scss"
 })
-export class NewProductComponent implements OnInit {
+export class NewProductComponent implements OnInit, OnDestroy {
     readonly formProductService = inject(FormProductService);
     private readonly _route = inject(ActivatedRoute);
     private readonly _router = inject(Router);
@@ -18,20 +20,26 @@ export class NewProductComponent implements OnInit {
 
     loadingSaveProduct: boolean = false;
     idProduct!: string;
-    today = new Date().toISOString().substring(0, 10);
+    today = moment().format("YYYY-MM-DD");
+    statusChangesSubscription: Record<string, Subscription> = {};
+
     ngOnInit(): void {
         this.assigmentDataForm();
+    }
+
+    ngOnDestroy(): void {
+        Object.values(this.statusChangesSubscription).forEach(subscription => subscription.unsubscribe());
     }
 
     assigmentDataForm(): void {
         this.idProduct = this._route.snapshot.queryParams["id"];
         if (this.idProduct) {
             //code here for update
-        } else {
-
-            this.formProduct.get("date_revision")?.setValue(this.today);
-            this.formProduct.get("date_revision")!.disable();
         }
+
+        this.statusChangesSubscription["changeStatusDateRelease"] = this.formProduct.get("date_release")!.valueChanges.subscribe((value) => {
+            this.formProduct.get("date_revision")?.setValue(moment(value).add(1, "year").format("YYYY-MM-DD"));
+        });
     }
 
     saveProduct(): void {

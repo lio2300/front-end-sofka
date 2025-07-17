@@ -46,13 +46,11 @@
             <tr>
                 <td [attr.colspan]="dataSource.columns.length">
                     <div class="layout-data-table__foot">
-                        <span>{{ dataSource.total | notEmpty }} Resultados</span>
-                        <select (change)="changePerPAge($event)">
+                        <span>{{ totalRows | notEmpty }} Resultados</span>
+                        <select aria-label="Items per page" (change)="changePerPAge($event)">
                             <option selected [value]="5">5</option>
                             <option [value]="10">10</option>
-                            <option [value]="25">25</option>
-                            <option [value]="50">50</option>
-                            <option [value]="100">100</option>
+                            <option [value]="20">20</option>
                         </select>
                     </div>
                 </td>

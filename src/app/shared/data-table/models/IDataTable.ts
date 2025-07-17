@@ -3,8 +3,6 @@ import {DataTableTemplateDirective} from "@app/directives/data-table-template/da
 export interface IDataTable {
     rows: IDataTableRow[][];
     columns: IDataTableColumns[]
-    total: number;
-    perPage: number;
 }
 
 export type IDataTableColumns = Omit<IDataTableRow, "value"> & {name: string;};

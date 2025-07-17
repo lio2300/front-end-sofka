@@ -28,7 +28,7 @@
             </div>
             <div class="financial-product__input-group">
                 <label for="new-product-date-release">Fecha Liberación</label>
-                <input type="date" formControlName="date_release" appInputSofka id="new-product-date-release">
+                <input type="date" [min]="today" formControlName="date_release" appInputSofka id="new-product-date-release">
             </div>
             <div class="financial-product__input-group">
                 <label for="new-product-date-revision">Fecha Revisión</label>

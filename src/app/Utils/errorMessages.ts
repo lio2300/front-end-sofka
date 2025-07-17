@@ -18,7 +18,7 @@ export const getErrorMessage = (errors: ValidationErrors | null): string =>{
         return "El ID ya existe";
     }
     if (errors["releaseDate"]) {
-        return "Fecha de lanzamiento inválida";
+        return "Fecha de lanzamiento inválida, debe ser igual o mayor a la fecha actual";
     }
     if (errors["revisionDate"]) {
         return "Fecha de revisión inválida";

@@ -18,7 +18,8 @@ import {DataTableBuilder} from "@app/shared/data-table/class/DataTable";
     styleUrl: "./data-table.component.scss"
 })
 export class DataTableComponent implements AfterContentInit, OnChanges {
-    private readonly currentPerPage: number = 5;
+    currentPerPage: number = 5;
+    totalRows!: number;
 
     @Input() dataSource: IDataTable = new DataTableBuilder().build();
 
@@ -45,7 +46,8 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
         this.loadCustomColumns();
     }
 
-    ngOnChanges({dataSource}: SimpleChanges): void {
+    ngOnChanges({dataSource, currentPerPage}: SimpleChanges): void {
+        console.log(currentPerPage);
         if (!dataSource) {
             return;
         }
@@ -53,8 +55,7 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     }
 
     loadCustomColumns(): void {
-        this.dataSource.total = this.dataSource.rows?.length ?? 0;
-        this.dataSource.perPage = this.currentPerPage;
+        this.totalRows = this.dataSource.rows?.length ?? 0;
 
         this.dataSource = {
             ...this.dataSource,
@@ -66,7 +67,7 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
                         overwrite_label: this.overwriteLabels.find(
                             value => value.name === column.alias
                         ),
-                    }
+                    };
                 }),
         };
 
@@ -99,7 +100,8 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
 
     changePerPAge(event: Event): void {
         const value = (event.target as HTMLSelectElement).value;
+        this.loadCustomColumns();
 
-        this.dataSource.perPage = +value;
+        this.rowsSource.splice(+value, this.rowsSource.length);
     }
 }

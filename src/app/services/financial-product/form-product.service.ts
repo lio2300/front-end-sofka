@@ -10,7 +10,6 @@ import {
 } from "@angular/forms";
 import {IFormModule} from "@app/models/IFormModule";
 import {finalize, map, Observable} from "rxjs";
-import {releaseDateValidator, revisionDateValidator} from "@app/Utils/form-validators";
 import {HttpProductService} from "@app/services/financial-product/http-product.service";
 
 @Injectable({
@@ -36,8 +35,11 @@ export class FormProductService implements IFormModule {
                 name: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
                 description: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
                 logo: new FormControl(null, [Validators.required]),
-                date_release: new FormControl(null, [Validators.required, revisionDateValidator]),
-                date_revision: new FormControl(null, [Validators.required, releaseDateValidator]),
+                date_release: new FormControl(null, [Validators.required]),
+                date_revision: new FormControl({
+                    value: null,
+                    disabled: true
+                }, [Validators.required]),
             },
         );
     }
