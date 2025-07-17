@@ -4,8 +4,8 @@ import {
 } from "@angular/common/http";
 import {inject, Injectable} from "@angular/core";
 import {catchError, Observable, throwError} from "rxjs";
-import {retry} from "rxjs/operators";
 import {environment} from "../../../environments/environment.dev";
+import {HandleErrors} from "@app/Utils/handleErrors";
 
 export interface IHttpResponse<T = unknown> {
     data: T;
@@ -31,33 +31,31 @@ export class HttpService {
 
     post<T>(url: string, data: T, headers = {}): Observable<IHttpResponse<T>> {
         return this.httpClient.post<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
-            retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     put<T>(url: string, data: T, headers = {}): Observable<IHttpResponse<T>> {
         return this.httpClient.put<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
-            retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     delete<T>(url: string, headers = {}): Observable<IHttpResponse> {
         return this.httpClient.delete<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, headers).pipe(
-            retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     patch<T>(url: string, data: T, headers = {}): Observable<IHttpResponse> {
         return this.httpClient.patch<IHttpResponse<T>>(`${this.mainUrl}${this.prefix}${url}`, data, headers).pipe(
-            retry(3),
             catchError(error => this.handleError(error))
         );
     }
 
     public handleError(errorResponse: HttpErrorResponse) {
+        const handleErrors = new HandleErrors(errorResponse);
+        handleErrors.showError();
         return throwError(() => errorResponse);
     }
 }

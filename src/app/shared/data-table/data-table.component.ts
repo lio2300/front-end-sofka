@@ -22,6 +22,7 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     totalRows!: number;
 
     @Input() dataSource: IDataTable = new DataTableBuilder().build();
+    @Input() loadingData: boolean = false;
 
     @ContentChildren(DataTableTemplateDirective) contentTemplates!: QueryList<DataTableTemplateDirective>;
 

@@ -8,6 +8,7 @@
     <button [routerLink]="['new']" class="btn btn-primary cursor-pointer">Agregar</button>
 </form>
 <app-data-table
+        [loadingData]="loadingData"
         [dataSource]="dataSource"
 >
     <ng-template appDataTableTemplate name="description" type="label" let-column>

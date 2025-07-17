@@ -53,6 +53,7 @@ export class ProductComponent extends DataTableModule implements OnInit {
             order: 6
         }
     ];
+    loadingData: boolean = false;
 
     constructor() {
         super();
@@ -67,12 +68,17 @@ export class ProductComponent extends DataTableModule implements OnInit {
     }
 
     fetchDataTable(): void {
+        this.loadingData = true;
         this._financialProductsService.retrieveProducts(this.formSearch.get("searchText")!.value).subscribe({
             next: data => {
                 this.dataSource = new DataTableBuilder()
                     .setRows(this.convertToRowDataTable<IFinancialProducts>(data))
                     .setColumns(this._columnsDataTable)
                     .build();
+                this.loadingData = false;
+            },
+            error: () => {
+                this.loadingData = false;
             }
         });
     }

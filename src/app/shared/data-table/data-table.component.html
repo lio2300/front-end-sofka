@@ -17,44 +17,51 @@
         </tr>
         </thead>
         <tbody>
-            @for (row of rowsSource; track row) {
-                <tr>
-                    @for (column of row; track column) {
-                        <td>
-                            @if (column.overwrite_value !== undefined) {
-                                <ng-container
-                                        [ngTemplateOutlet]="column.overwrite_value.templateRef"
-                                        [ngTemplateOutletContext]="{ $implicit: column, item: column.item }">
-                                </ng-container>
-                            } @else {
-                                {{ column.value | notEmpty }}
-                            }
-                        </td>
-                    }
-                </tr>
+            @if (!loadingData) {
+                @for (row of rowsSource; track row) {
+                    <tr>
+                        @for (column of row; track column) {
+                            <td>
+                                @if (column.overwrite_value !== undefined) {
+                                    <ng-container
+                                            [ngTemplateOutlet]="column.overwrite_value.templateRef"
+                                            [ngTemplateOutletContext]="{ $implicit: column, item: column.item }">
+                                    </ng-container>
+                                } @else {
+                                    {{ column.value | notEmpty }}
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
             }
 
-            @if (!rowsSource.length) {
+
+            @if (!rowsSource.length && !loadingData) {
                 <tr>
                     <td class="layout-data-table__text-center" [attr.colspan]="dataSource.columns.length">
                         No data found
                     </td>
                 </tr>
             }
+
+            @if (loadingData) {
+                <tr>
+                    <td class="layout-data-table__text-center" [attr.colspan]="dataSource.columns.length">
+                        <i class="fa-duotone fa-solid fa-spinner fa-spin"></i>
+                    </td>
+                </tr>
+            }
         </tbody>
-        <tfoot>
-            <tr>
-                <td [attr.colspan]="dataSource.columns.length">
-                    <div class="layout-data-table__foot">
-                        <span>{{ totalRows | notEmpty }} Resultados</span>
-                        <select aria-label="Items per page" (change)="changePerPAge($event)">
-                            <option selected [value]="5">5</option>
-                            <option [value]="10">10</option>
-                            <option [value]="20">20</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
+
     </table>
+
+</div>
+<div class="layout-data-table layout-data-table__foot">
+    <span>{{ totalRows | notEmpty }} Resultados</span>
+    <select aria-label="Items per page" (change)="changePerPAge($event)">
+        <option selected [value]="1">5</option>
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+    </select>
 </div>
