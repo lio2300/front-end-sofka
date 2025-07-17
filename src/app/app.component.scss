@@ -5,4 +5,10 @@ $bg-color: rgb(220 227 231);
     background-color: $bg-color;
     padding: 4rem 3rem 6rem 3rem;
   }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
 }
