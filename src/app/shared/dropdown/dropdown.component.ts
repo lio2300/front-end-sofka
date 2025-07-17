@@ -38,16 +38,16 @@ export class DropdownComponent implements AfterContentInit {
             value => value.type === "menuTrigger"
         );
 
-        this.statusChangesSubscription["formEventClick"] = fromEvent(document, "click").subscribe((event: Event) => {
-            const clickedInsideTrigger = this.triggerContainer?.nativeElement.contains(event.target);
-            const clickedInsideContent = this.menuContent?.nativeElement.contains(event.target);
-
-            if (!clickedInsideTrigger && !clickedInsideContent) {
-                this.renderer.addClass(this.menuContent?.nativeElement, "d-none");
-            }
-        });
-
         setTimeout(() => {
+            this.statusChangesSubscription["formEventClick"] = fromEvent(document, "click").subscribe((event: Event) => {
+                const clickedInsideTrigger = this.triggerContainer?.nativeElement.contains(event.target);
+                const clickedInsideContent = this.menuContent?.nativeElement.contains(event.target);
+
+                if (!clickedInsideTrigger && !clickedInsideContent) {
+                    this.renderer.addClass(this.menuContent?.nativeElement, "d-none");
+                }
+            });
+
             if (this.triggerContainer) {
                 this.statusChangesSubscription["formEventClickTriggerContent"] = fromEvent(this.triggerContainer.nativeElement, "click").subscribe(() => {
                     this.renderer.removeClass(this.menuContent?.nativeElement, "d-none");
