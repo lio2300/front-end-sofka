@@ -32,8 +32,10 @@
     </ng-template>
 
     <ng-template appDataTableTemplate name="logo" type="column" let-column>
-        <img [src]="column.value" class="logo-product logo-product-image" alt="logo-product" (error)="addErrorClass($event, defaultImg)"/>
-        <div #defaultImg class="logo-product d-none">JG</div>
+        <div class="logo-product-container">
+            <img [src]="column.value" class="logo-product logo-product-image" alt="logo-product" (error)="addErrorClass($event, defaultImg)"/>
+            <div #defaultImg class="logo-product d-none">JG</div>
+        </div>
     </ng-template>
 
 
