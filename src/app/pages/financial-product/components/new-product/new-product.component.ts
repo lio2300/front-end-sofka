@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpProductService} from "@app/services/financial-product/http-product.service";
 import moment from "moment";
 import {Subscription} from "rxjs";
+import {HandleErrors} from "@app/Utils/handleErrors";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: "app-new-product",
@@ -37,9 +39,17 @@ export class NewProductComponent implements OnInit, OnDestroy {
             this.loadingSaveProduct = true;
             this.formProduct.get("id")?.disable();
             this._httpProduct.retrieveProducts(this.idProduct).subscribe({
-                next: ([product]) => {
-                    this.formProduct.patchValue(product);
+                next: (product) => {
                     this.loadingSaveProduct = false;
+
+                    if (!product.length) {
+                        const handleErrors = new HandleErrors(new HttpErrorResponse({status: 404}));
+                        handleErrors.showError("Product not found");
+                        this._router.navigate(["/financial-product"]);
+                        return;
+                    }
+
+                    this.formProduct.patchValue(product[0]);
                 },
                 error: () => {
                     this.loadingSaveProduct = false;

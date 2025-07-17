@@ -5,6 +5,7 @@ export class HandleErrors {
     constructor(protected errorResponse: HttpErrorResponse) {}
 
     createAlert(message: string): void {
+        this.removeAlert();
         const firstDiv = document.createElement("div");
         firstDiv.id = "alert-message";
         firstDiv.classList.add("handler-error");
@@ -33,8 +34,8 @@ export class HandleErrors {
         return "Error desconocido";
     }
 
-    showError(): void {
-        this.createAlert(this.getMessageError(this.errorResponse.status));
+    showError(msg: string = this.getMessageError(this.errorResponse.status)): void {
+        this.createAlert(msg);
 
         setTimeout(() => {
             this.removeAlert();
