@@ -5,8 +5,7 @@
         <form [formGroup]="formProduct" class="financial-product__form" (ngSubmit)="saveProduct()">
             <div class="financial-product__input-group">
                 <label for="new-product-id">Id</label>
-                <input [disabled]="formProductService.loadingVerifyIdExitsProduct"
-                       type="text" formControlName="id" appInputSofka
+                <input type="text" formControlName="id" appInputSofka
                        id="new-product-id">
                 @if (formProductService.loadingVerifyIdExitsProduct) {
                     <span>

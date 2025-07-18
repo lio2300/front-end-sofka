@@ -1,7 +1,7 @@
 import {IFinancialProducts} from "@app/models/IFinancialProducts";
 
 export class FinancialProduct implements IFinancialProducts{
-    id!: number;
+    id!: string;
     name!: string;
     description!: string;
     logo!: string;
@@ -15,7 +15,7 @@ export class FinancialProductsBuilder {
     constructor() {
         this.financialProduct = new FinancialProduct();
     }
-    setId(value: number): this {
+    setId(value: string): this {
         this.financialProduct.id = value;
         return this;
     }

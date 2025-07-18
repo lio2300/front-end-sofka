@@ -2,7 +2,7 @@
     <table class="layout-data-table__content">
         <thead>
         <tr>
-            @for (column of dataSource.columns; track dataSource.columns) {
+            @for (column of dataSource.columns; track i; let i = $index) {
                 <td>
                     @if (column.overwrite_label !== undefined) {
                         <ng-container
@@ -18,9 +18,9 @@
         </thead>
         <tbody>
             @if (!loadingData) {
-                @for (row of rowsSource; track row) {
+                @for (row of rowsSource; track i; let i = $index) {
                     <tr>
-                        @for (column of row; track column) {
+                        @for (column of row; track i; let i = $index) {
                             <td>
                                 @if (column.overwrite_value !== undefined) {
                                     <ng-container

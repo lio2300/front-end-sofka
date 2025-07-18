@@ -21,8 +21,8 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     currentPerPage: number = 5;
     totalRows!: number;
 
-    @Input() dataSource: IDataTable = new DataTableBuilder().build();
-    @Input() loadingData: boolean = false;
+    @Input({required: true}) dataSource: IDataTable = new DataTableBuilder().build();
+    @Input({required: true}) loadingData: boolean = false;
 
     @ContentChildren(DataTableTemplateDirective) contentTemplates!: QueryList<DataTableTemplateDirective>;
 

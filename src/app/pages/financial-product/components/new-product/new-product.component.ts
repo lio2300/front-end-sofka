@@ -37,7 +37,7 @@ export class NewProductComponent implements OnInit, OnDestroy {
         this.idProduct = this._route.snapshot.params["id"];
         if (this.idProduct) {
             this.loadingSaveProduct = true;
-            this.formProduct.get("id")?.disable();
+            this.formProduct.get("id")!.disable();
             this._httpProduct.retrieveProducts(this.idProduct).subscribe({
                 next: (product) => {
                     this.loadingSaveProduct = false;
